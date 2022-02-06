@@ -1,6 +1,6 @@
 <template>
-  <div
-    class="item"
+  <div 
+    v-bind:class = "gallery !== undefined?'item':'gallery'"
     role="button"
     tabindex="0"
     :draggable="isDraggable"
@@ -20,7 +20,7 @@
       <i v-else class="material-icons">{{ icon }}</i>
     </div>
 
-    <div>
+    <div v-if="gallery !== undefined">
       <p class="name">{{ name }}</p>
 
       <p v-if="isDir" class="size" data-order="-1">&mdash;</p>
@@ -57,6 +57,7 @@ export default {
     "modified",
     "index",
     "readOnly",
+    "gallery",
   ],
   computed: {
     ...mapState(["user", "selected", "req", "jwt"]),
@@ -95,7 +96,9 @@ export default {
       // reload the image when the file is replaced
       const key = Date.parse(this.modified);
 
-      return `${baseURL}/api/preview/thumb/${path}?k=${key}&inline=true`;
+      const proportion = this.gallery !== undefined ? "thumb" : "big";
+
+      return `${baseURL}/api/preview/${proportion}/${path}?k=${key}&inline=true`;
     },
     isThumbsEnabled() {
       return enableThumbs;

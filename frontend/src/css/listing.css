@@ -16,6 +16,11 @@
   justify-content: flex-start;
 }
 
+#listing .gallery {
+  width: 33%;
+  margin-right: 3px;
+}
+
 #listing .item {
   background-color: #fff;
   position: relative;
