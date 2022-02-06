@@ -11,6 +11,16 @@
         <span>{{ $t("sidebar.myFiles") }}</span>
       </button>
 
+      <button
+        class="action"
+        @click="toGallery"
+        :aria-label="'Gallery'"
+        :title="'Gallery'"
+      >
+        <i class="material-icons">folder</i>
+        <span>{{ 'Gallery' }}</span>
+      </button>
+
       <div v-if="user.perm.create">
         <button
           @click="$store.commit('showHover', 'newDir')"
@@ -127,6 +137,10 @@ export default {
   methods: {
     toRoot() {
       this.$router.push({ path: "/files/" }, () => {});
+      this.$store.commit("closeHovers");
+    },
+    toGallery() {
+      this.$router.push({ path: "/files/Gallery" }, () => {});
       this.$store.commit("closeHovers");
     },
     toSettings() {
