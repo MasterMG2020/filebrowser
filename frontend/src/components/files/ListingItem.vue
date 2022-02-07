@@ -1,6 +1,6 @@
 <template>
   <div 
-    v-bind:class = "gallery !== undefined?'item':'gallery'"
+    v-bind:class = "gallery == undefined?'item':'gallery'"
     role="button"
     tabindex="0"
     :draggable="isDraggable"
@@ -20,7 +20,7 @@
       <i v-else class="material-icons">{{ icon }}</i>
     </div>
 
-    <div v-if="gallery !== undefined">
+    <div v-if="gallery == undefined">
       <p class="name">{{ name }}</p>
 
       <p v-if="isDir" class="size" data-order="-1">&mdash;</p>
@@ -80,7 +80,7 @@ export default {
       return this.readOnly == undefined && this.user.perm.rename;
     },
     canDrop() {
-      if (!this.isDir || this.readOnly !== undefined) return false;
+      if (!this.isDir || this.readOnly == undefined) return false;
 
       for (let i of this.selected) {
         if (this.req.items[i].url === this.url) {
@@ -96,7 +96,7 @@ export default {
       // reload the image when the file is replaced
       const key = Date.parse(this.modified);
 
-      const proportion = this.gallery !== undefined ? "thumb" : "big";
+      const proportion = this.gallery == undefined ? "thumb" : "big";
 
       return `${baseURL}/api/preview/${proportion}/${path}?k=${key}&inline=true`;
     },

@@ -12,6 +12,7 @@ import Delete from "./Delete";
 import Rename from "./Rename";
 import Download from "./Download";
 import Move from "./Move";
+import Gallery from "./Gallery";
 import Copy from "./Copy";
 import NewFile from "./NewFile";
 import NewDir from "./NewDir";
@@ -31,6 +32,7 @@ export default {
     Rename,
     Download,
     Move,
+    Gallery,
     Copy,
     Share,
     NewFile,
@@ -74,6 +76,9 @@ export default {
           case "move":
             prompt.move(event);
             break;
+          case "gallery":
+            prompt.move(event);
+            break;
           case "replace":
             prompt.showConfirm(event);
             break;
@@ -91,6 +96,7 @@ export default {
           "delete",
           "rename",
           "move",
+          "gallery",
           "copy",
           "newFile",
           "newDir",

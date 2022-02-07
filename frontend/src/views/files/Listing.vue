@@ -18,6 +18,13 @@
             show="share"
           />
           <action
+            v-if="headerButtons.gallery"
+            id="gallery-button"
+            icon="save"
+            :label="'add to Gallery'"
+            show="gallery"
+          />
+          <action
             v-if="headerButtons.rename"
             icon="mode_edit"
             :label="$t('buttons.rename')"
@@ -220,6 +227,7 @@
             v-bind:modified="item.modified"
             v-bind:type="item.type"
             v-bind:size="item.size"
+            v-bind:gallery="item.url.includes('Gallery')?true:undefined"
           >
           </item>
         </div>
@@ -365,6 +373,7 @@ export default {
         rename: this.selectedCount === 1 && this.user.perm.rename,
         share: this.selectedCount === 1 && this.user.perm.share,
         move: this.selectedCount > 0 && this.user.perm.rename,
+        gallery: this.selectedCount > 0 && this.user.perm.rename,
         copy: this.selectedCount > 0 && this.user.perm.create,
       };
     },
