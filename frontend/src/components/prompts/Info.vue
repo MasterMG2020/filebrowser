@@ -12,6 +12,9 @@
       <p class="break-word" v-if="selected.length < 2">
         <strong>{{ $t("prompts.displayName") }}</strong> {{ name }}
       </p>
+      <!-- <p class="break-word" v-if="selected.length < 2">
+        <strong>{{ "Tag: " }}</strong> {{ tag }}
+      </p> -->
       <p v-if="!dir || selected.length > 1">
         <strong>{{ $t("prompts.size") }}:</strong>
         <span id="content_length"></span> {{ humanSize }}
@@ -118,6 +121,9 @@ export default {
         ? this.req.name
         : this.req.items[this.selected[0]].name;
     },
+    // tag: function () {
+    //   return this.req.name.indexOf('T?') == -1?undefined:this.req.name.slice(this.req.name.indexOf('T?')+2,this.req.name.indexOf('.jpg'));
+    // },
     dir: function () {
       return (
         this.selectedCount > 1 ||

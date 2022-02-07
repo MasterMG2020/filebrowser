@@ -32,10 +32,20 @@
           />
           <action
             v-if="headerButtons.tag"
-            icon="mode_edit"
+            icon="check_circle"
             :label="'tag'"
             show="tag"
           />
+
+          <input
+            type="text"
+            @keyup.enter="submit"
+            ref="input"
+            v-model.trim="sortTag"
+            :aria-label="'sos'"
+            :placeholder="'sos'"
+          />
+
           <action
             v-if="headerButtons.copy"
             id="copy-button"
@@ -109,7 +119,7 @@
       />
       <action
         v-if="headerButtons.tag"
-        icon="mode_edit"
+        icon="check_circle"
         :label="'tag'"
         show="tag"
       />
@@ -230,7 +240,7 @@
         <h2 v-if="req.numFiles > 0">{{ $t("files.files") }}</h2>
         <div v-if="req.numFiles > 0">
           <item
-            v-for="item in files"
+            v-for="item in this.sortTag == '' ? files:files.filter(tag => tag.name.slice(tag.name.indexOf('T?')+2,tag.name.indexOf('.jpg')) == this.sortTag)"
             :key="base64(item.name)"
             v-bind:index="item.index"
             v-bind:name="item.name"
@@ -240,6 +250,7 @@
             v-bind:type="item.type"
             v-bind:size="item.size"
             v-bind:gallery="item.url.includes('Gallery')?true:undefined"
+            v-bind:tag="item.name.indexOf('T?') == -1?undefined:item.name.slice(item.name.indexOf('T?')+2,item.name.indexOf('.jpg'))"
           >
           </item>
         </div>
@@ -306,6 +317,7 @@ export default {
       dragCounter: 0,
       width: window.innerWidth,
       itemWeight: 0,
+      sortTag: "",
     };
   },
   computed: {
@@ -446,6 +458,14 @@ export default {
     ...mapMutations(["updateUser", "addSelected"]),
     base64: function (name) {
       return window.btoa(unescape(encodeURIComponent(name)));
+    },
+    submit(event) {
+      event.preventDefault();
+
+      if (this.sortTag === "") {
+        return;
+      }
+      this.$store.commit("setReload", true);
     },
     keyEvent(event) {
       // No prompts are shown

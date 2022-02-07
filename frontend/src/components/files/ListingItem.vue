@@ -58,6 +58,7 @@ export default {
     "index",
     "readOnly",
     "gallery",
+    "tag",
   ],
   computed: {
     ...mapState(["user", "selected", "req", "jwt"]),
