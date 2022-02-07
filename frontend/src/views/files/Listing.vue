@@ -21,7 +21,7 @@
             v-if="headerButtons.gallery"
             id="gallery-button"
             icon="save"
-            :label="'add to Gallery'"
+            :label="'Add to Gallery'"
             show="gallery"
           />
           <action
@@ -42,8 +42,8 @@
             @keyup.enter="submit"
             ref="input"
             v-model.trim="sortTag"
-            :aria-label="'sos'"
-            :placeholder="'sos'"
+            :aria-label="'Filter by Tag'"
+            :placeholder="'Filter by Tag'"
           />
 
           <action
@@ -237,7 +237,6 @@
           </item>
         </div>
 
-        <h2 v-if="req.numFiles > 0">{{ $t("files.files") }}</h2>
         <div v-if="req.numFiles > 0">
           <item
             v-for="item in this.sortTag == '' ? files:files.filter(tag => tag.name.slice(tag.name.indexOf('T?')+2,tag.name.indexOf('.jpg')) == this.sortTag)"

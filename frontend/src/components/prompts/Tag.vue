@@ -1,7 +1,7 @@
 <template>
   <div class="card floating">
     <div class="card-title">
-      <h2>{{ "add Tag" }}</h2>
+      <h2>{{ "Add Tag" }}</h2>
     </div>
 
     <div class="card-content">
@@ -44,7 +44,6 @@
 import { mapState, mapGetters } from "vuex";
 import url from "@/utils/url";
 import { files as api } from "@/api";
-
 export default {
   name: "tag",
   data: function () {
@@ -64,12 +63,10 @@ export default {
       if (!this.isListing) {
         return this.req.name;
       }
-
       if (this.selectedCount === 0 || this.selectedCount > 1) {
         // This shouldn't happen.
         return;
       }
-
       return this.req.items[this.selected[0]].name;
     },
     submit: async function () {
@@ -81,41 +78,35 @@ export default {
       } else {
         oldLink = this.req.items[this.selected[0]].url;
       }
-
       if (this.oldName().indexOf("T?" !== -1)) {
         let slice1 = this.oldName().indexOf("T?") + 2;
         let slice2 = this.oldName().indexOf(".jpg");
         result = this.oldName().slice(slice1, slice2);
       }
-
       //   newLink =
       //     url.removeLastDir(oldLink) + "/" + encodeURIComponent(this.oldName().replace('.jpg',"T?" + this.name + ".jpg"));
       //   console.log('newLink: ' + newLink);
       //   console.log('this.name: ' + this.name);
       // newLink =
       //   url.removeLastDir(oldLink) + "/" + this.oldName().replace('.jpg',"T?" + this.name + ".jpg")
-
       newLink =
         url.removeLastDir(oldLink) +
         "/" +
         encodeURIComponent(
           this.oldName().indexOf("T?") == -1
-            ? this.oldName().replace(".jpg", this.name() + ".jpg")
+            ? this.oldName().replace(".jpg", "T?" + this.name + ".jpg")
             : this.oldName().replace(result, this.name)
         );
-
       try {
         await api.move([{ from: oldLink, to: newLink }]);
         if (!this.isListing) {
           this.$router.push({ path: newLink });
           return;
         }
-
         this.$store.commit("setReload", true);
       } catch (e) {
         this.$showError(e);
       }
-
       this.$store.commit("closeHovers");
     },
   },
