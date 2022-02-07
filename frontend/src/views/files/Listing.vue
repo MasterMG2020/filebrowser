@@ -31,6 +31,12 @@
             show="rename"
           />
           <action
+            v-if="headerButtons.tag"
+            icon="mode_edit"
+            :label="'tag'"
+            show="tag"
+          />
+          <action
             v-if="headerButtons.copy"
             id="copy-button"
             icon="content_copy"
@@ -100,6 +106,12 @@
         icon="mode_edit"
         :label="$t('buttons.rename')"
         show="rename"
+      />
+      <action
+        v-if="headerButtons.tag"
+        icon="mode_edit"
+        :label="'tag'"
+        show="tag"
       />
       <action
         v-if="headerButtons.copy"
@@ -371,6 +383,7 @@ export default {
         shell: this.user.perm.execute && enableExec,
         delete: this.selectedCount > 0 && this.user.perm.delete,
         rename: this.selectedCount === 1 && this.user.perm.rename,
+        tag: this.selectedCount === 1 && this.user.perm.rename,
         share: this.selectedCount === 1 && this.user.perm.share,
         move: this.selectedCount > 0 && this.user.perm.rename,
         gallery: this.selectedCount > 0 && this.user.perm.rename,

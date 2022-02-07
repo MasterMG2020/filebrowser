@@ -10,6 +10,7 @@ import Help from "./Help";
 import Info from "./Info";
 import Delete from "./Delete";
 import Rename from "./Rename";
+import Tag from "./Tag";
 import Download from "./Download";
 import Move from "./Move";
 import Gallery from "./Gallery";
@@ -30,6 +31,7 @@ export default {
     Info,
     Delete,
     Rename,
+    Tag,
     Download,
     Move,
     Gallery,
@@ -95,6 +97,7 @@ export default {
           "help",
           "delete",
           "rename",
+          "tag",
           "move",
           "gallery",
           "copy",
